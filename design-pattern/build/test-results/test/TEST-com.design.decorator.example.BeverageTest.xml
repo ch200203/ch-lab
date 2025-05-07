@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.design.decorator.example.BeverageTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-04-13T09:57:57" hostname="ich.local" time="0.008">
+  <properties/>
+  <testcase name="mochaTest()" classname="com.design.decorator.example.BeverageTest" time="0.008"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
