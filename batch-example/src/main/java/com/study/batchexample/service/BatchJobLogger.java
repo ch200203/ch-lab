@@ -20,7 +20,6 @@ public class BatchJobLogger {
      *
      * @param jobName    job(작업) 이름
      * @param operatorId 작업자(실행자) Id
-     * @return
      */
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public BatchJobHistory start(String jobName, String operatorId) {
@@ -34,6 +33,11 @@ public class BatchJobLogger {
         // batchJobRepository.save(history);
     }
 
+    /**
+     * 실패 처리 메서드
+     * @param history
+     * @param message 실패원인 기록
+     */
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void fail(BatchJobHistory history, String message) {
         history.fail(message);

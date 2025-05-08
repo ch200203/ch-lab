@@ -1,9 +1,14 @@
 package com.study.batchexample.annotation;
 
 import lombok.RequiredArgsConstructor;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Component;
+
+import java.util.concurrent.TimeUnit;
 
 @Aspect
 @Component
@@ -12,5 +17,26 @@ public class DistributedLockAspect {
 
     private final RedissonClient redissonClient;
 
-    // TODO : 아 이거는 고민을 좀 더 해볼까...
+    @Around("@annotation(lock)")
+    public Object lock(ProceedingJoinPoint joinPoint, DistributedLock lock) throws Throwable {
+        RLock rLock = redissonClient.getLock(lock.key());
+        boolean isLocked = false;
+
+        try {
+            isLocked = rLock.tryLock(0, lock.timeoutSeconds(), TimeUnit.SECONDS);
+
+            if (!isLocked) {
+                // 선점 실패
+                return 0;
+            }
+
+            return joinPoint.proceed();
+
+        } finally {
+            if (isLocked) {
+                rLock.unlock();
+            }
+        }
+    }
+
 }

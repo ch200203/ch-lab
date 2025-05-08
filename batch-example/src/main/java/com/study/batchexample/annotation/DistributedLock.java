@@ -14,9 +14,5 @@ public @interface DistributedLock {
 
     @NotNull String key();
 
-    TimeUnit timeUnit() default TimeUnit.SECONDS;
-
-    long waitTime() default 5L;
-
-    long leaseTime() default 3L;
+    long timeoutSeconds() default 10; // 10s 대기
 }
