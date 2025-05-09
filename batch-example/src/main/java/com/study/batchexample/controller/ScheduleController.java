@@ -16,8 +16,8 @@ public class ScheduleController {
 
     @DeleteMapping("/batch-test") // POST
     public ResponseEntity<String> deleteBatch() {
-        scheduleDeleteTask.deleteData();
-        return ResponseEntity.ok().body("배치 성공!");
+        int i = scheduleDeleteTask.deleteData();
+        return ResponseEntity.ok().body("배치 성공 건수 :  " + i);
     }
 
 }

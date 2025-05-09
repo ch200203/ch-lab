@@ -60,6 +60,7 @@ public class BatchJobHistory {
         this.endTime = LocalDateTime.now();
     }
 
+
     public void fail(String message) {
         this.status = BatchJobStatus.FAIL;
         this.message = message;

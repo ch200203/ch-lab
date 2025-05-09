@@ -1,6 +1,7 @@
 package com.study.batchexample.annotation;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 @Aspect
 @Component
 @RequiredArgsConstructor
@@ -24,6 +26,8 @@ public class DistributedLockAspect {
 
         try {
             isLocked = rLock.tryLock(0, lock.timeoutSeconds(), TimeUnit.SECONDS);
+
+            log.info("<UNK>lock<UNK>{}", isLocked);
 
             if (!isLocked) {
                 // 선점 실패
