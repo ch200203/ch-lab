@@ -17,7 +17,6 @@ public class ScheduleDeleteTask {
     private final RedissonClient redissonClient;
     private final SampleService sampleService;
 
-    @Scheduled(cron = "0 */5 * * * *")
     @BatchJob(name = "deleteData", operatorId = "system")
     @DistributedLock(key = "delete-batch-lock")
     public int deleteData() {
