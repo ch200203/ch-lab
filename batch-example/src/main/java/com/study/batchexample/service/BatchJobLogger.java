@@ -31,18 +31,14 @@ public class BatchJobLogger {
      */
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public BatchJobHistory start(String jobName, String operatorId) {
-        logTx(Thread.currentThread().getStackTrace()[1].getMethodName());
         BatchJobHistory history = BatchJobHistory.start(jobName, operatorId, getHostName());
         return batchJobRepository.save(history);
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void complete(BatchJobHistory history, Integer rowsAffected) {
-        log.info(">>> before merge: isPersistent = {}", em.contains(history)); // false 예상
-        logTx(Thread.currentThread().getStackTrace()[1].getMethodName());
+        log.info(">>> before merge: isPersistent = {}", em.contains(history));
         history.complete(rowsAffected);
-        // batchJobRepository.save(history);
-        log.info(">>> after merge: isPersistent = {}", em.contains(history)); // 여전히 false (save는 merge된 객체를
     }
 
     /**
@@ -53,18 +49,10 @@ public class BatchJobLogger {
      */
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void fail(BatchJobHistory history, String message) {
-        log.info(">>> FAIL 호출됨");
-        log.info("isNewTransaction? {}", TransactionSynchronizationManager.isActualTransactionActive());
-        log.info(">>> before merge: isPersistent = {}", em.contains(history)); // false 예상
-
-        logTx(Thread.currentThread().getStackTrace()[1].getMethodName());
-
-        history.fail(message); // 필드 변경 -> 준영속?
+        log.info(">>> before merge: isPersistent = {}", em.contains(history));
+        history.fail(message);
+        log.info(">>> after merge: isPersistent = {}", em.contains(history)); // 여전히 false
         // batchJobRepository.save(history);
-
-        // batchJobRepository.saveAndFlush(history); // 테스트 용으로 Flush 이거는 동작함
-        log.info(">>> FAIL 저장됨");
-        log.info(">>> after merge: isPersistent = {}", em.contains(history)); // 여전히 false (save는 merge된 객체를 반환함)
     }
 
     private String getHostName() {

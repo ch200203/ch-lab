@@ -12,8 +12,6 @@ public class SampleService {
 
     public void someService() {
         log.info("특정 서비스 실행");
-        throw new IllegalArgumentException("특정 오류 발생");
+        // throw new IllegalArgumentException("특정 오류 발생");
     }
-
-
 }
