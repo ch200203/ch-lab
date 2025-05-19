@@ -1,9 +1,14 @@
+import org.gradle.kotlin.dsl.kotlin
+
 plugins {
 	kotlin("jvm") version "1.9.25"
 	kotlin("plugin.spring") version "1.9.25"
 	id("org.springframework.boot") version "3.4.5"
 	id("io.spring.dependency-management") version "1.1.7"
 	kotlin("plugin.jpa") version "1.9.25"
+	kotlin("plugin.allopen") version "1.9.25"
+	kotlin("plugin.noarg") version "1.9.25"
+
 }
 
 group = "com.study"
@@ -28,11 +33,13 @@ dependencies {
 	implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	runtimeOnly("com.h2database:h2")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.projectreactor:reactor-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test")
+	runtimeOnly("com.mysql:mysql-connector-j")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 

@@ -12,6 +12,7 @@ data class ClickCommand(
     val userAgent: String,
 ) {
 
+    // DB 에서 구분하기 위한 UniqueKey 값임.
     var eventId: String
 
     init {
@@ -19,14 +20,12 @@ data class ClickCommand(
     }
 
     /**
-     * 사용할 ID 값 생셩
+     * 사용할 ID 값 생셩 => 이걸 기반으로 중복을 걸러야함
      */
     private fun createId(): String = (deviceId + gender + age + ip).hashCode().toString()
 
-    /**
-     * Redis 캐싱 용 키
-     */
+    // 아오 이거 이름 꼬였네 뭐라고 하냐
     fun cacheKey(): String {
-        return "event:$eventId:click:count"
+        return "event:click:count:"
     }
 }

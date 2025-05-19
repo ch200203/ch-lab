@@ -10,13 +10,13 @@ import org.springframework.web.context.request.RequestContextHolder
 import org.springframework.web.context.request.ServletRequestAttributes
 import java.time.Duration.*
 
-@Aspect
-@Component
+// @Aspect
+// @Component
 class DuplicateLimiterAspect(
     private val redisService: RedisService,
 ) {
 
-    @Around("@annotation(DuplicateLimiter)")
+    // @Around("@annotation(DuplicateLimiter)")
     fun checkLimits(joinPoint: ProceedingJoinPoint, duplicateLimiter: DuplicateLimiter): Any? {
         val request = RequestContextHolder.currentRequestAttributes() as ServletRequestAttributes
         val ip = request.request.remoteAddr;
@@ -26,13 +26,18 @@ class DuplicateLimiterAspect(
         val methodName = signature.method.name
         val key = "ratelimit:${methodName}:${createCacheKey(ip, userAgent)}"
 
+        val currentCount = redisService["event:total:count:"]?.toLong()
+
         val allowed = redisService.setIfAbsent(key, 1, ofSeconds(duplicateLimiter.ttsSeconds))
+
+        // TODO isLimit 함수 개발 필요
+
+        return joinPoint.proceed()
     }
 
 
     private fun createCacheKey(ip: String, userAgent: String) = buildString {
         append(ip).append(':').append(userAgent)
     }.hashCode()
-
 
 }

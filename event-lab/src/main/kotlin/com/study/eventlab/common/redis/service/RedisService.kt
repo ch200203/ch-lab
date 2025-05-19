@@ -20,6 +20,7 @@ class RedisService(
 
     fun del(vararg patterns: String): Set<String> {
         val removedKeys = HashSet<String>()
+
         for (pattern in patterns) {
             removedKeys.addAll(del(pattern))
         }
@@ -43,5 +44,7 @@ class RedisService(
         return redisTemplate.opsForValue().increment(key)
     }
 
-    fun setIfAbsent(key: String, i: Int, ofSeconds: java.time.Duration) {}
+    fun setIfAbsent(key: String, i: Int, ofSeconds: Duration) {
+        redisTemplate.opsForValue()[key, i.toString()] = ofSeconds
+    }
 }
