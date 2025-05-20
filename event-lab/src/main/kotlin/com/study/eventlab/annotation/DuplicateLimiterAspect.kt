@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component
 import org.springframework.web.context.request.RequestContextHolder
 import org.springframework.web.context.request.ServletRequestAttributes
 import java.time.Duration.*
+import kotlin.time.Duration.Companion.seconds
 
 // @Aspect
 // @Component
@@ -28,7 +29,7 @@ class DuplicateLimiterAspect(
 
         val currentCount = redisService["event:total:count:"]?.toLong()
 
-        val allowed = redisService.setIfAbsent(key, 1, ofSeconds(duplicateLimiter.ttsSeconds))
+        val allowed = redisService.setIfAbsent(key, 1, duplicateLimiter.ttsSeconds.seconds)
 
         // TODO isLimit 함수 개발 필요
 
