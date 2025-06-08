@@ -5,6 +5,9 @@
       <module name="batch-example" options="-parameters" />
       <module name="batch-example.main" options="-parameters" />
       <module name="batch-example.test" options="-parameters" />
+      <module name="event-lab" options="-parameters" />
+      <module name="event-lab.main" options="-parameters" />
+      <module name="event-lab.test" options="-parameters" />
     </option>
   </component>
 </project>
