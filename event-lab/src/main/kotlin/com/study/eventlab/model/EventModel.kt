@@ -12,7 +12,7 @@ import java.time.LocalDateTime
 @Table(name = "events")
 class EventModel(
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    val id: Long? = null,
+    var id: Long? = null,
     val eventId: String,
     val age: Int,
     val gender: String,
