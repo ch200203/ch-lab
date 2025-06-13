@@ -21,7 +21,7 @@ class EventService(
         private const val KEY_PREFIX = "event:click:count:"
 
         // 1시간 TTL
-        private val CACHE_TTL = 30.seconds
+        private val CACHE_TTL = 30.seconds // Kotlin Duration
     }
 
     /**
@@ -125,7 +125,6 @@ class EventService(
         return dbCount
     }
 
-
     /**
      * 삭제 테스트용 메서드
      * 나중에 제거해야함
@@ -133,4 +132,20 @@ class EventService(
     fun del(keyPattern: String) {
         redisService.del("event:$keyPattern")
     }
+
+    fun getClickHistory(eventId: Long): List<HistoryResponseDto> {
+        val key = "${KEY_PREFIX}:${eventId}"
+
+        return repository.findAllById(eventId).map {
+            HistoryResponseDto(
+                it.id!!, it.age.toString(), it.registerDateTime.toString()
+            )
+        }
+    }
 }
+
+data class HistoryResponseDto(
+    val id: Long,
+    val age: String,
+    val clickAt: String,
+)

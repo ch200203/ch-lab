@@ -11,8 +11,6 @@ import kotlin.time.Duration.Companion.hours
 @Configuration
 class RedisConfig {
 
-
-
     @Bean
     fun redisTemplate(connectionFactory: RedisConnectionFactory): RedisTemplate<String, String> {
         return RedisTemplate<String, String>().apply {
