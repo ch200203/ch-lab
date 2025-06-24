@@ -19,6 +19,7 @@ class RedisService(
 
     fun keys(keyPattern: String): Set<String> = redisTemplate.keys(keyPattern)
 
+
     operator fun get(key: String): String? = redisTemplate.opsForValue()[key]
 
     fun del(vararg patterns: String): Set<String> {
