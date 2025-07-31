@@ -7,6 +7,7 @@
     <file type="web" url="file://$PROJECT_DIR$/event-lab" />
     <file type="web" url="file://$PROJECT_DIR$/java-lab" />
     <file type="web" url="file://$PROJECT_DIR$/virtual-thread-spring" />
+    <file type="web" url="file://$PROJECT_DIR$/virtual-thread-spring-v2" />
   </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="temurin-21" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
