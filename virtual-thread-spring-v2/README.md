@@ -11,7 +11,7 @@
 
 ### 기능
 - Virtual Thread 실행: @UseVirtualThread 애너테이션을 통해 선택적으로 Virtual Thread에서 실행
-- MDC 전파: Virtual Thread로 실행되는 메서드에서도 MDC 컨텍스트를 자동으로 전파
+- ~~MDC 전파: Virtual Thread로 실행되는 메서드에서도 MDC 컨텍스트를 자동으로 전파~~ (TODO)
 
 ### 사용 예시
 
