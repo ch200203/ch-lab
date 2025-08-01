@@ -18,4 +18,15 @@ public class LoadTestController {
         Thread.sleep(1000);
         return Thread.currentThread().getName();
     }
+
+    @GetMapping("/users")
+    public UserResponseDto getUser() {
+        return new UserResponseDto("김한화");
+    }
+
+    record UserResponseDto(
+            String username
+    ) {
+
+    }
 }

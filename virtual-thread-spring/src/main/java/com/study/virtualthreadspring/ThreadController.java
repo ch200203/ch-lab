@@ -13,14 +13,4 @@ public class ThreadController {
        return Thread.currentThread().toString();
     }
 
-    @GetMapping("/getUser")
-    public UserResponseDto getUser() {
-        return new UserResponseDto("김한화");
-    }
-
-    record UserResponseDto(
-            String username
-    ) {
-
-    }
 }

@@ -1,4 +1,4 @@
-package com.study.virtualthreadspringv2;
+package com.study.virtualthreadspringv2.client;
 
 import com.study.virtualthreadspringv2.annotation.UseVirtualThread;
 import lombok.RequiredArgsConstructor;
