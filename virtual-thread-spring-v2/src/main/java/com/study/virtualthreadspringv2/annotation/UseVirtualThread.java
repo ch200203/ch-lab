@@ -33,6 +33,7 @@ class VirtualThreadAspect {
         try {
             return CompletableFuture.supplyAsync(
                     () -> {
+                        // TODO MDC Context 전파코드 추가
                         try {
                             return joinPoint.proceed();
                         } catch (Throwable e) {
