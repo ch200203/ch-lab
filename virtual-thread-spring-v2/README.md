@@ -83,3 +83,25 @@ class VirtualThreadConfig {
         TaskExecutorAdapter(Executors.newVirtualThreadPerTaskExecutor())
 }
 ```
+
+### 적용 흐름도
+```mermaid
+sequenceDiagram
+    participant Client as Client Request
+    participant Controller as Spring Controller<br>(Platform Thread)
+    participant Service as Service Layer<br>(Platform Thread)
+    participant RestClient as RestClient Call<br>(Virtual Thread)
+    participant ExternalAPI as External REST API
+
+    Client->>Controller: HTTP 요청
+    Controller->>Service: 비즈니스 로직 호출
+    Service->>+RestClient: @UseVirtualThread 적용 →<br>Virtual Thread 실행
+    RestClient->>ExternalAPI: 블로킹 I/O (가상 스레드 활용)
+    ExternalAPI-->>RestClient: 응답 수신
+    RestClient-->>-Service: 응답 반환
+    Service-->>Controller: 처리 결과 반환
+    Controller-->>Client: HTTP 응답
+```
+- `Controller`, `Service`는 기존 플랫폼 스레드에서 실행됩니다.
+- RestClient 호출 구간만 Virtual Thread로 실행되어, 블로킹 I/O 시에도 스레드 낭비 없이 처리됩니다.
+- 이를 통해 점진적 전환과 스레드 자원 최적화를 달성합니다.
