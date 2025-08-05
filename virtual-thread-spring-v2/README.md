@@ -47,6 +47,7 @@ var result = VtStructured.structured(
 - fan-out 서비스는 max-concurrent-forks 설정을 통해 동시 실행 제한을 두는 것이 좋습니다.
 - 타임아웃 및 재시도 정책을 설정하여 다운스트림 장애 전파를 최소화하세요.
 - 테스트 환경에서 Virtual Thread 여부를 Thread.currentThread().isVirtual()로 쉽게 확인할 수 있습니다.
+- Platform Thread가 요청보다 많은 경우에는 당연히 Virtual Thread를 사용하는 이점이 없습니다.
 
 
 ### RestClient 구간에만 적용 시 장점

@@ -29,4 +29,18 @@ public class LoadTestController {
     ) {
 
     }
+
+    @GetMapping("/orders")
+    public OrderResponseDto getOrders() {
+        return new OrderResponseDto("firstOrder", "김한화", "아이폰15Pro", "2");
+    }
+
+    record OrderResponseDto(
+            String orderId,
+            String userName,
+            String product,
+            String quantity
+    ) {
+    }
+
 }
