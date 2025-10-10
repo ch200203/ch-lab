@@ -1,0 +1,8 @@
+spring:
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY} # api-key 키는 민감하기 떄문에 주의하여 관리
+      # base-url: api.openai.com # 기본으로 지정되어 있음
+      chat:
+        options:
+          model: gpt-4o-mini # 사용할 llm 모델을 정의 (gpt-4o, gpt-4o-mini, gpt-4-turbo, gpt-3.5-turbo 등등 사용가능)
