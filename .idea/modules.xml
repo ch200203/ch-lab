@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/batch-example.main.iml" filepath="$PROJECT_DIR$/.idea/modules/batch-example.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/ch-lab.iml" filepath="$PROJECT_DIR$/ch-lab.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/virtual-thread-spring-v2.main.iml" filepath="$PROJECT_DIR$/.idea/modules/virtual-thread-spring-v2.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/virtual-thread-spring.main.iml" filepath="$PROJECT_DIR$/.idea/modules/virtual-thread-spring.main.iml" />
     </modules>
   </component>
 </project>

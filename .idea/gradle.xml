@@ -40,6 +40,22 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/opensearch-study-1" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/opensearch-study-1" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/study-api-versioning" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/study-api-versioning" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/virtual-thread-spring" />
         <option name="modules">
           <set>
