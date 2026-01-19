@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Transactional Outbox Demo</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; margin: 40px; background: #f7f7f9; }
+        h1 { margin-bottom: 0.4rem; }
+        .panel { background: #fff; padding: 24px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); max-width: 600px; }
+        label { display: block; margin-bottom: 4px; font-weight: 600; }
+        input { width: 100%; padding: 8px 10px; margin-bottom: 16px; border-radius: 6px; border: 1px solid #d1d5db; }
+        button { padding: 10px 14px; border: none; border-radius: 6px; background: #2563eb; color: #fff; cursor: pointer; font-size: 15px; }
+        button:disabled { background: #a5b4fc; cursor: not-allowed; }
+        .testbox { margin-top: 24px; padding: 12px; border-radius: 8px; min-height: 140px; background: #0f172a; color: #f8fafc; font-family: 'SFMono-Regular', Consolas, monospace; white-space: pre-wrap; }
+        .status { margin-top: 8px; font-size: 14px; color: #555; }
+    </style>
+</head>
+<body>
+    <h1>Transactional Outbox 패턴 데모</h1>
+    <p>아래 폼에 고객 이름과 금액을 입력하고 전송하면 REST API → 서비스 → Outbox 저장 흐름을 확인할 수 있습니다.</p>
+    <div class="panel">
+        <form id="orderForm">
+            <label for="customerName">고객 이름</label>
+            <input id="customerName" name="customerName" placeholder="홍길동" required>
+
+            <label for="amount">주문 금액</label>
+            <input id="amount" name="amount" type="number" placeholder="10000" step="0.01" min="0" required>
+
+            <button type="submit">주문 생성</button>
+            <div class="status" id="status"></div>
+        </form>
+        <div class="testbox" id="resultBox">아직 요청이 없습니다. 주문을 생성하면 응답 JSON이 표시됩니다.</div>
+    </div>
+
+    <script>
+        const form = document.getElementById('orderForm');
+        const resultBox = document.getElementById('resultBox');
+        const status = document.getElementById('status');
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            status.textContent = '요청 중...';
+            resultBox.textContent = '';
+
+            const payload = {
+                customerName: form.customerName.value,
+                amount: Number(form.amount.value)
+            };
+
+            try {
+                const response = await fetch('/api/v1/orders', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+                status.textContent = response.ok ? '주문이 생성되었습니다.' : '오류가 발생했습니다.';
+                resultBox.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                status.textContent = '네트워크 오류';
+                resultBox.textContent = error.message;
+            }
+        });
+    </script>
+</body>
+</html>

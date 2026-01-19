@@ -1,0 +1,27 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: demo-route
+          uri: http://localhost:8080/demo
+          predicates: # ????
+            # - Cookie=mycookie,mycookievalue
+            - name: Cookie
+              args:
+                name: mycookie
+                regexp: mycookievalue
+            - Method: GET, POST # GET, POST ??? ???
+            # - Host=**.somehost.org,**.anotherhost.org # ?? ???? ?? ???.
+            # ? ???? ???? ??
+            # https://docs.spring.io/spring-cloud-gateway/reference/spring-cloud-gateway-server-webflux/request-predicates-factories.html#method-route-predicate-factory ????
+
+
+logging:
+  level:
+    org.springframework.cloud.gateway: TRACE
+    org.springframework.http.server.reactive: DEBUG
+    org.springframework.web.reactive: DEBUG
+    reactor.ipc.netty: DEBUG
+    reactor.netty: DEBUG
+
+management.endpoints.web.exposure.include: '*'

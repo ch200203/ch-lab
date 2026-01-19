@@ -47,6 +47,9 @@
 # CMake
 cmake-build-*/
 
+# JetBrains 프로젝트 디렉터리 전체 무시
+.idea/
+
 # Mongo Explorer plugin
 .idea/**/mongoSettings.xml
 
@@ -144,6 +147,9 @@ replay_pid*
 .gradle
 **/build/
 !src/**/build/
+
+### Lock files ###
+*.lock
 
 # Ignore Gradle GUI config
 gradle-app.setting
